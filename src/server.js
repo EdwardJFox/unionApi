@@ -98,6 +98,7 @@ function sendNews(params, res){
         news : []
     };
     if(params.tags.length > 0){
+        var t = params.tags.split(",");
         for(var i = 0; i < newsData.news.length; i++){
             for(var j = 0; j < t.length; j++){
                 if(newsData.news[i].Tags.indexOf(t[j]) >= 0){
