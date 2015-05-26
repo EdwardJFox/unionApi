@@ -1,0 +1,19 @@
+{
+  "name": "node-staffs-union-api",
+  "description": "Reassembling of MSL's API",
+  "main": "server.js",
+  "author": "EdwardJFox",
+  "dependencies": {
+    "express": "latest",
+    "request": "latest",
+    "async": "latest",
+    "moment": "latest"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "license": "MIT"
+}
