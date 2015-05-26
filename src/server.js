@@ -38,6 +38,12 @@ app.get('/news/', function(req, res){
     else {
         params.page = defaults.page;
     }
+    if(req.query.tags){
+        params.tags = req.query.tags;
+    }
+    else {
+        params.tags = [];
+    }
     if(req.query.verbose == "true"){
         sendVerboseNews(params, res);
     }
@@ -89,8 +95,25 @@ function findNewsById(id, res){
 
 function sendNews(params, res){
     var toSend = {
-        news : newsData.news.slice(params.page*params.limit, (params.page*params.limit) + params.limit)
+        news : []
     };
+    if(params.tags.length > 0){
+        for(var i = 0; i < newsData.news.length; i++){
+            for(var j = 0; j < t.length; j++){
+                if(newsData.news[i].Tags.indexOf(t[j]) >= 0){
+                    toSend.news.push(newsData.news[i]);
+                }
+            }
+        }
+        if(toSend.news.length == 0){
+            toSend = {error:"No news found with tag(s) " + t};
+        }
+    }
+    else {
+        toSend = {
+            news : newsData.news.slice(params.page*params.limit, (params.page*params.limit) + params.limit)
+        };
+    }
     res.json(toSend);
 }
 
